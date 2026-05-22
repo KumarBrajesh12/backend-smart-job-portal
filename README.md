@@ -1,14 +1,15 @@
 # Smart Job Portal — Backend
 
-Production-grade REST API for the Smart Job Portal. Built with **Node.js**, **Express**, **MongoDB** (Mongoose), and **Elasticsearch** (planned).
+Production-grade REST API for the Smart Job Portal. Built with **TypeScript**, **Node.js**, **Express**, **MongoDB** (Mongoose), and **Elasticsearch** (planned).
 
 ## Tech stack
 
+- TypeScript 5
 - Node.js 18+ (ES modules)
 - Express 4
 - MongoDB + Mongoose
 - JWT authentication utilities
-- ESLint (Airbnb Base) + Prettier
+- ESLint (Airbnb TypeScript) + Prettier
 - Husky + lint-staged
 - Docker Compose (MongoDB, Elasticsearch, Kibana)
 
@@ -53,12 +54,13 @@ API runs at **http://localhost:5000**
 
 ## Scripts
 
-| Script           | Description                   |
-| ---------------- | ----------------------------- |
-| `npm run dev`    | Start dev server with nodemon |
-| `npm start`      | Start production server       |
-| `npm run lint`   | Run ESLint                    |
-| `npm run format` | Format code with Prettier     |
+| Script           | Description                       |
+| ---------------- | --------------------------------- |
+| `npm run dev`    | Start dev server with tsx (watch) |
+| `npm run build`  | Compile TypeScript to `dist/`     |
+| `npm start`      | Run compiled production server    |
+| `npm run lint`   | Run ESLint                        |
+| `npm run format` | Format code with Prettier         |
 
 ## API endpoints
 
@@ -85,10 +87,12 @@ API runs at **http://localhost:5000**
 
 ```
 backend-smart-job-portal/
-├── server.js                 # Entry point — DB connect & listen
+├── server.ts                 # Entry point — DB connect & listen
+├── tsconfig.json
 ├── docker-compose.yml
 ├── src/
-│   ├── app.js                # Express app setup
+│   ├── app.ts                # Express app setup
+│   ├── types/                # Shared TypeScript types
 │   ├── config/               # env, database
 │   ├── controllers/
 │   ├── models/

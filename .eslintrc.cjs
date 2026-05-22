@@ -1,19 +1,30 @@
 module.exports = {
+  root: true,
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'airbnb-base',
+    'airbnb-typescript/base',
+    'prettier',
+  ],
   env: {
     node: true,
     es2022: true,
   },
-  extends: ['airbnb-base', 'prettier'],
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
   rules: {
-    'import/extensions': ['error', 'always', { js: 'always' }],
     'no-console': 'off',
     'import/prefer-default-export': 'off',
     'consistent-return': 'off',
     'no-underscore-dangle': 'off',
-    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { argsIgnorePattern: '^_' },
+    ],
   },
+  ignorePatterns: ['dist', 'node_modules'],
 };
