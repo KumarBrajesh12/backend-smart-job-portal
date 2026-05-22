@@ -41,7 +41,39 @@ Services:
 cp .env.example .env
 ```
 
-Edit `.env` with your values (especially `JWT_SECRET`).
+Edit `.env` with your values (especially `JWT_SECRET` and **SMTP** for verification emails).
+
+#### Email (`SMTP_MODE`)
+
+**Option A — Local dev without Gmail** (recommended if `npm run test:smtp` shows EAUTH):
+
+```env
+SMTP_MODE=ethereal
+FRONTEND_URL=http://localhost:3000
+```
+
+Restart the API, register a user, then open the **preview URL** printed in the terminal (Ethereal fake inbox).
+
+**Option B — Gmail** (real emails to inbox):
+
+1. Turn on [2-Step Verification](https://myaccount.google.com/security).
+2. Create a **new** [App Password](https://myaccount.google.com/apppasswords) (delete old ones first).
+3. Add to `.env`:
+
+```env
+SMTP_MODE=gmail
+SMTP_SERVICE=gmail
+SMTP_USER=you@gmail.com
+SMTP_PASS=16-char-app-password
+SMTP_FROM=you@gmail.com
+FRONTEND_URL=http://localhost:3000
+```
+
+Test credentials: `npm run test:smtp`
+
+If all three Gmail attempts fail with **EAUTH**, Google is rejecting the password (not a code bug). Use Option A or a provider like [Brevo](https://www.brevo.com) SMTP relay.
+
+Registration sends a link to `{FRONTEND_URL}/verify-email?token=...`.
 
 ### 3. Install & run
 

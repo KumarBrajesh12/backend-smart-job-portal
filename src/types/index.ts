@@ -1,11 +1,29 @@
+export interface SmtpConfig {
+  host: string;
+  port: number;
+  secure: boolean;
+  user: string;
+  pass: string;
+  from: string;
+  fromName: string;
+  /** e.g. "gmail" — uses nodemailer well-known service preset */
+  service: string;
+}
+
+export type SmtpMode = 'gmail' | 'smtp' | 'ethereal';
+
 export interface EnvConfig {
   nodeEnv: string;
   port: number;
   mongodbUri: string;
   jwtSecret: string;
-  jwtExpiresIn: string;
+  jwtAccessExpiresIn: string;
+  jwtRefreshExpiresIn: string;
   elasticsearchNode: string;
   corsOrigin: string;
+  frontendUrl: string;
+  smtpMode: SmtpMode;
+  smtp: SmtpConfig;
   isDevelopment: boolean;
   isProduction: boolean;
 }
@@ -24,7 +42,8 @@ export interface DbStatus {
 
 export interface ApiSuccessResponse<T> {
   success: true;
-  data: T;
+  data?: T;
+  message?: string;
 }
 
 export interface ApiErrorResponse {
@@ -45,3 +64,11 @@ export interface HealthData {
   };
   timestamp: string;
 }
+
+export type {
+  AuthUser,
+  JwtTokenPayload,
+  LoginResponse,
+  PublicUser,
+  UserRole,
+} from './auth.js';
